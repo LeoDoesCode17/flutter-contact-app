@@ -1,3 +1,5 @@
+import 'package:contact_app/domain/entities/contact.dart';
+import 'package:contact_app/domain/entities/contact_gender.dart';
 import 'package:contact_app/presentation/providers/contact_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +38,18 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ) /* Placeholder is contact list */,
-      floatingActionButton: FloatingActionButton(onPressed: null, child: Icon(Icons.add),),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => provider.addContact(
+          Contact(
+            id: null,
+            name: 'Leonardo',
+            phoneNumber: '082199940442',
+            gender: Gender.male,
+            description: 'Dummy data',
+          ),
+        ),
+        child: Icon(Icons.add),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
