@@ -1,7 +1,7 @@
 import 'package:contact_app/domain/entities/contact_gender.dart';
 
 class Contact {
-  final int id;
+  final int? id;
   final String name;
   final String phoneNumber;
   final Gender gender;
