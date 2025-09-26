@@ -1,13 +1,16 @@
 import 'package:contact_app/data/repositories/contract/icontact_repository.dart';
 import 'package:contact_app/domain/entities/contact.dart';
+import 'package:contact_app/domain/usecases/add_contact_use_case.dart';
 import 'package:contact_app/domain/usecases/get_all_contacts_use_case.dart';
 import 'package:flutter/material.dart';
 
 class ContactProvider extends ChangeNotifier {
   final IContactRepository repository;
   final GetAllContactsUseCase _getAllContactsUseCase;
+  final AddContactUseCase _addContactUseCase;
   ContactProvider({required this.repository})
-    : _getAllContactsUseCase = GetAllContactsUseCase(repository: repository);
+    : _getAllContactsUseCase = GetAllContactsUseCase(repository: repository),
+      _addContactUseCase = AddContactUseCase(repository: repository);
 
   List<Contact> _contacts = [];
   bool _isLoading = false;
@@ -29,5 +32,15 @@ class ContactProvider extends ChangeNotifier {
     }
     _isLoading = false;
     notifyListeners();
+  }
+
+  Future<void> addContact(Contact contact) async {
+    try {
+      await _addContactUseCase(contact);
+      await loadUsers();
+    } catch (e) {
+      _error = e.toString();
+      notifyListeners();
+    }
   }
 }
