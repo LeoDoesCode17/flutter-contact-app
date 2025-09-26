@@ -1,4 +1,4 @@
-import 'package:contact_app/utils/enums/gender.dart';
+import 'package:contact_app/domain/entities/contact_gender.dart';
 
 class Contact {
   final int id;
