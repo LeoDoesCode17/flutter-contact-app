@@ -20,7 +20,7 @@ class Contact {
     'id': id,
     'name': name,
     'phone_number': phoneNumber,
-    'gender': gender,
+    'gender': gender.name,
     'description': description,
   };
 
@@ -29,7 +29,10 @@ class Contact {
     id: map['id'] as int,
     name: map['name'] as String,
     phoneNumber: map['phone_number'] as String,
-    gender: map['gender'] as Gender,
+    gender: Gender.values.firstWhere(
+      (g) => g.name == map['gender'],
+      orElse: () => Gender.none,
+    ),
     description: map['description'] as String,
   );
 }
