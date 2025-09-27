@@ -15,15 +15,6 @@ class Contact {
     required this.description,
   });
 
-  // Convert Contact to Map
-  Map<String, Object?> toMap() => {
-    'id': id,
-    'name': name,
-    'phone_number': phoneNumber,
-    'gender': gender.name,
-    'description': description,
-  };
-
   Contact copyWith({
     String? id,
     String? name,
