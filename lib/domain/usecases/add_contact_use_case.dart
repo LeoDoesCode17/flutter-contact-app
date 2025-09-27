@@ -4,5 +4,5 @@ import 'package:contact_app/domain/entities/contact.dart';
 class AddContactUseCase {
   final IContactRepository repository;
   AddContactUseCase({required this.repository});
-  Future<int> call(Contact contact) => repository.add(contact);
+  Future<String> call(Contact contact) => repository.add(contact);
 }
