@@ -8,7 +8,7 @@ class Contact {
   final String description;
 
   const Contact({
-    required this.id,
+    this.id,
     required this.name,
     required this.phoneNumber,
     required this.gender,

@@ -41,7 +41,6 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () => provider.addContact(
           Contact(
-            id: null,
             name: 'Leonardo',
             phoneNumber: '082199940442',
             gender: Gender.male,
