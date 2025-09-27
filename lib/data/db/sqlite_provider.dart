@@ -2,10 +2,15 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class SQLiteDatabaseProvider {
-  SQLiteDatabaseProvider._();
-  static final SQLiteDatabaseProvider instance = SQLiteDatabaseProvider._();
-  static Database? _database;
 
+  // private constructor
+  SQLiteDatabaseProvider._();
+
+  // global shared instance of SQLiteDatabaseProvider
+  static final SQLiteDatabaseProvider instance = SQLiteDatabaseProvider._();
+  static Database? _database; // private property object to interact to sqlite database
+
+  // getter of sqlite database object
   Future<Database> get database async {
     if (_database != null) return _database!;
     _database = await _initDB('app.db');
