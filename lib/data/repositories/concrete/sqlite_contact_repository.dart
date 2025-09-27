@@ -5,7 +5,11 @@ import 'package:sqflite/sqflite.dart';
 
 class SqliteContactRepository implements IContactRepository {
   final SQLiteDatabaseProvider dbProvider;
+
+  // pass the sqlite database provider to constructor
   SqliteContactRepository({required this.dbProvider});
+
+  // a private property in getter form 
   Future<Database> get _db async => await dbProvider.database;
 
   @override

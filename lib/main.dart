@@ -9,8 +9,9 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); /* Must understand this */
 
-  SQLiteDatabaseProvider dbProvider = SQLiteDatabaseProvider.instance;
-  final repository = SqliteContactRepository(dbProvider: dbProvider);
+  SQLiteDatabaseProvider dbProvider = SQLiteDatabaseProvider.instance; // get the db provider singleton object
+
+  final repository = SqliteContactRepository(dbProvider: dbProvider); // create the repository object same accross app lifetime
 
   runApp(MyApp(repository: repository));
 }
