@@ -1,6 +1,7 @@
 import 'package:contact_app/data/repositories/contract/icontact_repository.dart';
 import 'package:contact_app/domain/entities/contact.dart';
 import 'package:contact_app/domain/usecases/add_contact_use_case.dart';
+import 'package:contact_app/domain/usecases/delete_contact_use_case.dart';
 import 'package:contact_app/domain/usecases/get_all_contacts_use_case.dart';
 import 'package:contact_app/domain/usecases/update_contact_use_case.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +11,12 @@ class ContactProvider extends ChangeNotifier {
   final GetAllContactsUseCase _getAllContactsUseCase;
   final AddContactUseCase _addContactUseCase;
   final UpdateContactUseCase _updateContactUseCase;
+  final DeleteContactUseCase _deleteContactUseCase;
   ContactProvider({required this.repository})
     : _getAllContactsUseCase = GetAllContactsUseCase(repository: repository),
       _addContactUseCase = AddContactUseCase(repository: repository),
-      _updateContactUseCase = UpdateContactUseCase(repository: repository);
+      _updateContactUseCase = UpdateContactUseCase(repository: repository),
+      _deleteContactUseCase = DeleteContactUseCase(repository: repository);
 
   List<Contact> _contacts = [];
   bool _isLoading = false;
@@ -50,6 +53,16 @@ class ContactProvider extends ChangeNotifier {
   Future<void> updateContact(Contact contact) async {
     try {
       await _updateContactUseCase(contact);
+      await loadContacts();
+    } catch (e) {
+      _error = e.toString();
+      notifyListeners();
+    }
+  }
+
+  Future<void> deleteContact(String id) async {
+    try {
+      await _deleteContactUseCase(id);
       await loadContacts();
     } catch (e) {
       _error = e.toString();
