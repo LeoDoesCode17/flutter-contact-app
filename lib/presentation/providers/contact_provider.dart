@@ -21,7 +21,7 @@ class ContactProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
   String? get error => _error;
 
-  Future<void> loadUsers() async {
+  Future<void> loadContacts() async {
     _isLoading = true;
     _error = null;
     notifyListeners(); // notify all widgets that use isLoading, error, and contacts
@@ -37,7 +37,7 @@ class ContactProvider extends ChangeNotifier {
   Future<void> addContact(Contact contact) async {
     try {
       await _addContactUseCase(contact);
-      await loadUsers();
+      await loadContacts();
     } catch (e) {
       _error = e.toString();
       notifyListeners();

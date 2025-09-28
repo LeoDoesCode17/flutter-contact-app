@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       providers: [
         /* Must Understand this */
         ChangeNotifierProvider(
-          create: (_) => ContactProvider(repository: repository)..loadUsers(),
+          create: (_) => ContactProvider(repository: repository)..loadContacts(),
         ),
       ],
       child: MaterialApp(
