@@ -44,6 +44,7 @@ class _ContactFormDialogState extends State<ContactFormDialog> {
 
   void _submit() {
     final updatedContact = Contact(
+      id: widget.contact.id,
       name: _nameController.text.trim(),
       phoneNumber: _phoneController.text.trim(),
       gender: _selectedGender,

@@ -33,7 +33,16 @@ class HomePage extends StatelessWidget {
                         return ContactCard(
                           contact: contact,
                           onDelete: null,
-                          onEdit: null,
+                          onEdit: () => showDialog<String>(
+                            context: context,
+                            builder: (context) => ContactFormDialog(
+                              contact: contact,
+                              onSubmit: (contact) => context
+                                  .read<ContactProvider>()
+                                  .updateContact(contact),
+                              title: 'Update Contact - ${contact.name}',
+                            ),
+                          ),
                         );
                       },
                     ),
@@ -52,9 +61,8 @@ class HomePage extends StatelessWidget {
               gender: Gender.none,
               description: '',
             ),
-            onSubmit: (newContact) {
-              context.read<ContactProvider>().addContact(newContact);
-            },
+            onSubmit: (newContact) =>
+                context.read<ContactProvider>().addContact(newContact),
           ),
         ),
         child: Icon(Icons.add),
