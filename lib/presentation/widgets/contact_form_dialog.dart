@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 class ContactFormDialog extends StatefulWidget {
   final Contact contact;
   final Function(Contact) onSubmit;
+  final String title;
   const ContactFormDialog({
     super.key,
     required this.contact,
     required this.onSubmit,
+    required this.title,
   });
 
   @override
@@ -62,7 +64,7 @@ class _ContactFormDialogState extends State<ContactFormDialog> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                'Add/Update Contact',
+                widget.title,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 16),

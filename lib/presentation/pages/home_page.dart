@@ -43,6 +43,7 @@ class HomePage extends StatelessWidget {
         onPressed: () => showDialog<String>(
           context: context,
           builder: (BuildContext context) => ContactFormDialog(
+            title: 'Add New Contact',
             contact: Contact(
               name: '',
               phoneNumber: '',
