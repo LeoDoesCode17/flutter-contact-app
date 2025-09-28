@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:contact_app/domain/entities/contact.dart';
 import 'package:contact_app/domain/entities/contact_gender.dart';
 
-typedef ContactCallback = void Function(Contact contact);
-typedef IdCallback = void Function(String id);
-
 class ContactCard extends StatelessWidget {
   final Contact contact;
-  final ContactCallback? onEdit;
-  final IdCallback? onDelete;
+  final void Function()? onEdit;
+  final void Function()? onDelete;
 
   const ContactCard({
     super.key,
@@ -113,14 +110,12 @@ class ContactCard extends StatelessWidget {
               children: [
                 IconButton(
                   tooltip: 'Edit',
-                  onPressed: onEdit == null ? null : () => onEdit!(contact),
+                  onPressed: onEdit,
                   icon: const Icon(Icons.edit),
                 ),
                 IconButton(
                   tooltip: 'Delete',
-                  onPressed: (contact.id == null || onDelete == null)
-                      ? null
-                      : () => onDelete!(contact.id!),
+                  onPressed: onDelete,
                   icon: const Icon(Icons.delete),
                 ),
               ],
