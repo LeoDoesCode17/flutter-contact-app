@@ -5,13 +5,20 @@ import 'package:contact_app/presentation/pages/home_page.dart';
 import 'package:contact_app/presentation/providers/contact_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); /* Must understand this */
 
-  SQLiteDatabaseProvider dbProvider = SQLiteDatabaseProvider.instance; // get the db provider singleton object
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform); // initialize firebase app
 
-  final repository = SqliteContactRepository(dbProvider: dbProvider); // create the repository object same accross app lifetime
+  SQLiteDatabaseProvider dbProvider =
+      SQLiteDatabaseProvider.instance; // get the db provider singleton object
+
+  final repository = SqliteContactRepository(
+    dbProvider: dbProvider,
+  ); // create the repository object same accross app lifetime
 
   runApp(MyApp(repository: repository));
 }
@@ -27,7 +34,8 @@ class MyApp extends StatelessWidget {
       providers: [
         /* Must Understand this */
         ChangeNotifierProvider(
-          create: (_) => ContactProvider(repository: repository)..loadContacts(),
+          create: (_) =>
+              ContactProvider(repository: repository)..loadContacts(),
         ),
       ],
       child: MaterialApp(
