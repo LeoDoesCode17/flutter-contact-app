@@ -7,7 +7,6 @@
 
 import 'package:contact_app/data/db/sqlite_provider.dart';
 import 'package:contact_app/data/repositories/concrete/sqlite_contact_repository.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:contact_app/main.dart';
