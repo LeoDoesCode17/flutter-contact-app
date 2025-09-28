@@ -1,6 +1,8 @@
 import 'package:contact_app/domain/entities/contact.dart';
 import 'package:contact_app/domain/entities/contact_gender.dart';
 import 'package:contact_app/presentation/providers/contact_provider.dart';
+import 'package:contact_app/presentation/widgets/contact_card.dart';
+import 'package:contact_app/presentation/widgets/contact_form_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,9 +30,10 @@ class HomePage extends StatelessWidget {
                       itemCount: provider.contacts.length,
                       itemBuilder: (context, index) {
                         final contact = provider.contacts[index];
-                        return ListTile(
-                          title: Text(contact.name),
-                          subtitle: Text(contact.phoneNumber),
+                        return ContactCard(
+                          contact: contact,
+                          onDelete: null,
+                          onEdit: null,
                         );
                       },
                     ),
@@ -39,12 +42,19 @@ class HomePage extends StatelessWidget {
         ),
       ) /* Placeholder is contact list */,
       floatingActionButton: FloatingActionButton(
-        onPressed: () => provider.addContact(
-          Contact(
-            name: 'Leonardo',
-            phoneNumber: '082199940442',
-            gender: Gender.male,
-            description: 'Dummy data',
+        onPressed: () => showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => ContactFormDialog(
+            title: 'Add New Contact',
+            contact: Contact(
+              name: '',
+              phoneNumber: '',
+              gender: Gender.none,
+              description: '',
+            ),
+            onSubmit: (newContact) {
+              context.read<ContactProvider>().addContact(newContact);
+            },
           ),
         ),
         child: Icon(Icons.add),
