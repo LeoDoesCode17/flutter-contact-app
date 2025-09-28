@@ -1,6 +1,7 @@
 import 'package:contact_app/domain/entities/contact.dart';
 import 'package:contact_app/domain/entities/contact_gender.dart';
 import 'package:contact_app/presentation/providers/contact_provider.dart';
+import 'package:contact_app/presentation/widgets/confirmation_dialog.dart';
 import 'package:contact_app/presentation/widgets/contact_card.dart';
 import 'package:contact_app/presentation/widgets/contact_form_dialog.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,20 @@ class HomePage extends StatelessWidget {
                         final contact = provider.contacts[index];
                         return ContactCard(
                           contact: contact,
-                          onDelete: null,
+                          onDelete: () => showDialog<String>(
+                            context: context,
+                            builder: (context) => ConfirmationDialog(
+                              contactId: contact.id!,
+                              title: 'Delete Contact - ${contact.name}',
+                              description:
+                                  'Are you sure want to delete contact of ${contact.name}?',
+                              onDelete: (contactId) {
+                                context.read<ContactProvider>().deleteContact(
+                                  contactId,
+                                );
+                              },
+                            ),
+                          ),
                           onEdit: () => showDialog<String>(
                             context: context,
                             builder: (context) => ContactFormDialog(
